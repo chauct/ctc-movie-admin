@@ -1,0 +1,9 @@
+.sider {
+  flex: 0 0 200px;
+  max-width: 400px;
+  min-width: 400px;
+  width: 200px;
+}
+.header {
+  color: #fff;
+}

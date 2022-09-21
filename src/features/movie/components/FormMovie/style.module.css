@@ -1,0 +1,37 @@
+.errorText {
+  color: red;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: italic;
+  text-align: left;
+  display: block;
+  /* padding-bottom: 15px; */
+  padding-top: 5px;
+  padding-left: 0;
+}
+.btn_submit {
+  margin-right: 30px;
+
+  background-color: #ad200d;
+  color: #fff;
+  border: 1px solid #ad200d;
+  transition: all 0.5s;
+}
+.btn_submit:hover,
+.btn_submit:focus {
+  background-color: transparent;
+  color: #ad200d;
+  border: 1px solid #ad200d;
+}
+.btn_cancel {
+  background-color: #1890ff;
+  color: #fff;
+  border: 1px solid #1890ff;
+  transition: all 0.5s;
+}
+.btn_cancel:hover,
+.btn_cancel:focus {
+  background-color: transparent;
+  color: #1890ff;
+  border-color: #1890ff;
+}

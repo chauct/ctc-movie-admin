@@ -1,0 +1,27 @@
+.btn_themPhim {
+  margin-bottom: 20px;
+  background-color: #ad200d;
+  color: #fff;
+  font-weight: 400;
+}
+.btn_themPhim:hover,
+.btn_delete:hover {
+  background-color: transparent;
+  border-color: #ad200d;
+  color: #ad200d;
+}
+.btn_themPhim:focus,
+.btn_delete:focus {
+  background-color: transparent;
+  border-color: #ad200d;
+  color: #ad200d;
+}
+.btn_edit {
+  margin-right: 15px;
+  background-color: #1890ff;
+  color: #fff;
+}
+.btn_delete {
+  background-color: #ad200d;
+  color: #fff;
+}
