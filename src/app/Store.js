@@ -1,9 +1,9 @@
 import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-// import bookingReducer from "features/movie/movieSlice";
+import bookingReducer from "features/movie/movieSlice";
 import authReducer from "features/auth/authSlice";
 const rootReducer = combineReducers({
-  // movie: bookingReducer,
+  movie: bookingReducer,
   auth: authReducer,
 });
 

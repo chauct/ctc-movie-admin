@@ -2,12 +2,14 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Col, Row, Table } from "antd";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { NavLink, useHistory } from "react-router-dom";
 import FormMovie from "../FormMovie";
 import styles from "./style.module.css";
 
 function TableMovie() {
   const movies = useSelector((state) => state.movie.movies);
 
+  const history = useHistory();
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   console.log({ movies });
@@ -73,12 +75,15 @@ function TableMovie() {
       render: (_, movie) => {
         return (
           <>
-            <Button className={styles.btn_edit}>
+            <NavLink
+              className={styles.btn_edit}
+              to={`/admin/movie/edit/${movie.maPhim}`}
+            >
               <EditOutlined />
-            </Button>
-            <Button className={styles.btn_delete}>
+            </NavLink>
+            <NavLink className={styles.btn_delete} to="/">
               <DeleteOutlined />
-            </Button>
+            </NavLink>
           </>
         );
       },
@@ -95,7 +100,8 @@ function TableMovie() {
       <Row>
         <Button
           onClick={() => {
-            setIsFormOpen(true);
+            // setIsFormOpen(true);
+            history.push("/admin/movie/add");
           }}
           className={styles.btn_themPhim}
         >
@@ -103,7 +109,7 @@ function TableMovie() {
         </Button>
       </Row>
       <Table columns={columns} dataSource={data} onChange={onChange} />
-      <FormMovie open={isFormOpen} />
+      {/* <FormMovie open={isFormOpen} /> */}
     </div>
   );
 }

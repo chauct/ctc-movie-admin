@@ -9,6 +9,7 @@ import Signin from "features/auth/pages/Signin";
 import MovieManagement from "features/movie/pages/MovieManagement";
 import FormMovie from "features/movie/components/FormMovie";
 import { UserTemplate } from "common/components/UserTemplate";
+import EditMovie from "features/movie/components/EditMovie";
 
 export const history = createBrowserHistory();
 
@@ -23,15 +24,12 @@ function App() {
       <Switch>
         <AdminTemplate path="/admin" exact component={Home} />
         <UserTemplate path="/" exact component={Signin} />
+        <AdminTemplate exact path="/admin/movie" component={MovieManagement} />
+        <AdminTemplate exact path="/admin/movie/add" component={FormMovie} />
         <AdminTemplate
           exact
-          path="/admin/list-movie"
-          component={MovieManagement}
-        />
-        <AdminTemplate
-          exact
-          path="/admin/list-movie/add-movie"
-          component={FormMovie}
+          path="/admin/movie/edit/:id"
+          component={EditMovie}
         />
       </Switch>
     </Router>

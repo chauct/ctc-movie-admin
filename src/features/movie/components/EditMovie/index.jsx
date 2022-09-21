@@ -3,11 +3,15 @@ import styles from "./style.module.css";
 import TextArea from "antd/lib/input/TextArea";
 import { useFormik } from "formik";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as yup from "yup";
-import { useDispatch } from "react-redux";
-import { fetchInsertMoviesAction } from "features/movie/action";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchGetInfoMoviesAction,
+  fetchInsertMoviesAction,
+} from "features/movie/action";
 import { GROUPID } from "common/utils/Setting";
+import { useRouteMatch } from "react-router-dom";
 
 const schema = yup.object().shape({
   tenPhim: yup.string().required("*Tên phim không được bỏ trống"),
@@ -20,10 +24,19 @@ const schema = yup.object().shape({
   moTa: yup.string().required("*Mô tả không được để trống  "),
 });
 
-function FormMovie() {
+function EditMovie() {
   const [imgSrc, setImgSrc] = useState("");
+
   const dispatch = useDispatch();
+
+  const infoMovie = useSelector((state) => state.movie.thongTiPhim);
+
+  const match = useRouteMatch();
+
+  const movieId = match.params.id;
+
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
       tenPhim: "",
       trailer: "",
@@ -52,6 +65,16 @@ function FormMovie() {
     },
     validationSchema: schema,
   });
+
+  //   dispatch action
+  const fetchGetInfoMovies = async () => {
+    dispatch(fetchGetInfoMoviesAction(movieId));
+  };
+
+  useEffect(() => {
+    fetchGetInfoMovies();
+  }, []);
+
   // Closures function
   const handleChangeSwitch = (name) => {
     return (value) => {
@@ -206,7 +229,7 @@ function FormMovie() {
         }}
       >
         <button className={styles.btn_submit} type="submit">
-          Thêm phim
+          Cập nhật
         </button>
         <button className={styles.btn_cancel} type="reset">
           Cancel
@@ -216,4 +239,4 @@ function FormMovie() {
   );
 }
 
-export default FormMovie;
+export default EditMovie;

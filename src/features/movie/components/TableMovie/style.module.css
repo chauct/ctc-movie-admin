@@ -4,24 +4,22 @@
   color: #fff;
   font-weight: 400;
 }
-.btn_themPhim:hover,
-.btn_delete:hover {
+.btn_themPhim:hover {
   background-color: transparent;
   border-color: #ad200d;
   color: #ad200d;
 }
-.btn_themPhim:focus,
-.btn_delete:focus {
+.btn_themPhim:focus {
   background-color: transparent;
   border-color: #ad200d;
   color: #ad200d;
 }
 .btn_edit {
+  color: #0a3d6d;
+  font-size: 20px;
   margin-right: 15px;
-  background-color: #1890ff;
-  color: #fff;
 }
 .btn_delete {
-  background-color: #ad200d;
-  color: #fff;
+  color: #ad200d;
+  font-size: 20px;
 }

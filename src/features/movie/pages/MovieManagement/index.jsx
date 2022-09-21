@@ -24,7 +24,7 @@ const suffix = (
 
 const onSearch = (value) => console.log(value);
 
-function MovieManagement() {
+function MovieManagement(props) {
   const dispatch = useDispatch();
 
   const fetchMovies = async () => {

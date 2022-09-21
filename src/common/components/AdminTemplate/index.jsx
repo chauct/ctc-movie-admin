@@ -35,7 +35,8 @@ const items = [
     getItem(<NavLink to="/admin/list-user">Danh Sách Người Dùng</NavLink>, "3"),
   ]),
   getItem("Quản lý phim", "sub2", <InsertRowBelowOutlined />, [
-    getItem(<NavLink to="/admin/list-movie">Danh Sách Phim</NavLink>, "4"),
+    getItem(<NavLink to="/admin/movie">Danh Sách Phim</NavLink>, "4"),
+    getItem(<NavLink to="/admin/movie/add">Thêm Phim</NavLink>, "8"),
   ]),
   getItem("Quản lý phòng vé ", "sub3", <LaptopOutlined />, [
     getItem(<NavLink to="/admin/movie-shedule">Lịch Chiếu Phim</NavLink>, "5"),
@@ -56,6 +57,7 @@ function AdminTemplate(props) {
   const [collapsed, setCollapsed] = useState(false);
 
   const userLogin = useSelector((state) => state.auth.profile);
+
   const goToSignin = () => {
     history.push("/");
   };
@@ -75,7 +77,7 @@ function AdminTemplate(props) {
     return <Redirect to="/" />;
   }
 
-  if (userLogin.maLoaiNguoiDung !== "QuanTri") {
+  if (userLogin.maLoaiNguoiDung === "KhachHang") {
     Swal.fire(
       "Thông báo",
       "Bạn không có quyền truy cập vào trang này!",

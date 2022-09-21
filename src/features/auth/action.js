@@ -15,7 +15,7 @@ export const fetchSigninAction = (user) => {
       delete profile.accessToken;
 
       localStorage.setItem("token", res.data.content.accessToken);
-      localStorage.setItem("userLogin", JSON.stringify(res.data));
+      // localStorage.setItem("userLogin", JSON.stringify(res.data));
       dispatch({
         type: SIGN_IN_ACTION,
         payload: profile,
