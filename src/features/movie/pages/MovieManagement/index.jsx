@@ -1,10 +1,9 @@
-import { AudioOutlined } from "@ant-design/icons";
-import { Col, Row, Space } from "antd";
-import Search from "antd/lib/transfer/search";
-import styles from "./style.module.css";
-import React from "react";
+import { Col, Input, Row } from "antd";
 
-import { useDispatch } from "react-redux";
+import styles from "./style.module.css";
+import React, { useState } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
 
 import { useEffect } from "react";
 
@@ -13,19 +12,22 @@ import { fetchMoviesAction } from "features/movie/action";
 
 // search
 
-const suffix = (
-  <AudioOutlined
-    style={{
-      fontSize: 16,
-      color: "#1890ff",
-    }}
-  />
-);
-
-const onSearch = (value) => console.log(value);
-
-function MovieManagement(props) {
+const { Search } = Input;
+function MovieManagement() {
   const dispatch = useDispatch();
+
+  const movie = useSelector((state) => state.movie.movies);
+  console.log(movie);
+  const arrFilm = movie;
+  const [q, setQ] = useState("");
+  const onSearch = (value) => console.log(value);
+  const fSearch = (rows) => {
+    return rows.filter((row) => row.tenPhim.toLowerCase().indexOf(q) > -1);
+  };
+  const handleChangeSearch = (e) => {
+    console.log(e.target.value);
+    setQ(e.target.value);
+  };
 
   const fetchMovies = async () => {
     dispatch(fetchMoviesAction);
@@ -34,21 +36,30 @@ function MovieManagement(props) {
   useEffect(() => {
     fetchMovies();
   }, []);
+  // search
 
   return (
     <div>
       <Row>
         <Col span={8} style={{ marginBottom: 30 }}>
-          <Search
-            placeholder="input search text"
+          {/* <Search
+            onSearch={onSearch}
+            onChange={handleChangeSearch}
+            defaultValue={q}
+            placeholder="Tìm kiếm phim theo tên"
             allowClear
             enterButton="Search"
             size="large"
+          /> */}
+          <Search
             onSearch={onSearch}
+            onChange={handleChangeSearch}
+            defaultValue={q}
+            placeholder="Tìm Kiếm Phim Theo Tên Phim"
           />
         </Col>
       </Row>
-      <TableMovie />
+      <TableMovie data={fSearch(arrFilm)} />
     </div>
   );
 }

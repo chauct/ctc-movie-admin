@@ -135,11 +135,11 @@ function FormMovie() {
         <img width={100} height={100} src={imgSrc} alt="..." />
       </Form.Item>
 
-      <Form.Item label="Bí danh" name="biDanh">
+      <Form.Item label="Bí danh">
         <Input name="biDanh" onChange={formik.handleChange} />
       </Form.Item>
 
-      <Form.Item label="Ngày KC" name="ngayKhoiChieu">
+      <Form.Item label="Ngày KC">
         <DatePicker
           onBlur={formik.handleBlur}
           format={"DD/MM/YYYY"}
@@ -152,19 +152,19 @@ function FormMovie() {
         )}
       </Form.Item>
 
-      <Form.Item label="Đang chiếu" valuePropName="checked">
+      <Form.Item label="Đang chiếu">
         <Switch onChange={handleChangeSwitch("dangChieu")} />
       </Form.Item>
 
-      <Form.Item label="Sắp chiếu" valuePropName="checked">
+      <Form.Item label="Sắp chiếu">
         <Switch onChange={handleChangeSwitch("sapChieu")} />
       </Form.Item>
 
-      <Form.Item label="Hot" valuePropName="checked">
+      <Form.Item label="Hot">
         <Switch onChange={handleChangeSwitch("hot")} />
       </Form.Item>
 
-      <Form.Item label="Đánh giá" name="danhGia">
+      <Form.Item label="Đánh giá">
         <InputNumber
           onBlur={formik.handleBlur}
           onChange={handleChangeInputNumber("danhGia")}
@@ -176,7 +176,7 @@ function FormMovie() {
         )}
       </Form.Item>
 
-      <Form.Item label="Trailer" name="trailer">
+      <Form.Item label="Trailer">
         <Input
           onBlur={formik.handleBlur}
           name="trailer"
@@ -187,7 +187,7 @@ function FormMovie() {
         )}
       </Form.Item>
 
-      <Form.Item label="Mô tả" name="moTa">
+      <Form.Item label="Mô tả">
         <TextArea
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}

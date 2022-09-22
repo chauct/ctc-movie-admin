@@ -1,90 +1,79 @@
-import { Button, DatePicker, Form, Input, InputNumber, Switch } from "antd";
-import styles from "./style.module.css";
-import TextArea from "antd/lib/input/TextArea";
+import React, { useEffect, useState } from "react";
+import { Form, Input, Radio, DatePicker, InputNumber, Switch } from "antd";
 import { useFormik } from "formik";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
-import * as yup from "yup";
+import styles from "./style.module.css";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouteMatch } from "react-router-dom";
 import {
   fetchGetInfoMoviesAction,
-  fetchInsertMoviesAction,
+  fetchUpdateMoviesAction,
 } from "features/movie/action";
 import { GROUPID } from "common/utils/Setting";
-import { useRouteMatch } from "react-router-dom";
-
-const schema = yup.object().shape({
-  tenPhim: yup.string().required("*Tên phim không được bỏ trống"),
-
-  hinhAnh: yup.mixed().nullable().required("*Vui lòng chọn hình ảnh"),
-
-  ngayKhoiChieu: yup.string().required("*Vui lòng chọn ngày khởi chiếu"),
-  danhGia: yup.string().required("*Chọn điểm đánh giá "),
-  trailer: yup.string().required("*Trailer không được bỏ trống "),
-  moTa: yup.string().required("*Mô tả không được để trống  "),
-});
 
 function EditMovie() {
+  const [componentSize, setComponentSize] = useState("default");
   const [imgSrc, setImgSrc] = useState("");
+
+  const movieInfo = useSelector((state) => state.movie.thongTinPhim);
 
   const dispatch = useDispatch();
 
-  const infoMovie = useSelector((state) => state.movie.thongTiPhim);
-
   const match = useRouteMatch();
-
   const movieId = match.params.id;
+
+  const fetchDanhSachPhongVe = async () => {
+    dispatch(fetchGetInfoMoviesAction(movieId));
+  };
+
+  useEffect(() => {
+    fetchDanhSachPhongVe();
+  }, []);
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      tenPhim: "",
-      trailer: "",
-      hinhAnh: {},
-      moTa: "",
-      ngayKhoiChieu: "",
-      dangChieu: false,
-      sapChieu: false,
-      hot: false,
-      danhGia: 0,
+      maPhim: movieInfo.maPhim,
+      dangChieu: movieInfo.dangChieu,
+      sapChieu: movieInfo.sapChieu,
+      hot: movieInfo.hot,
+      danhGia: movieInfo.danhGia,
+      tenPhim: movieInfo.tenPhim,
+      trailer: movieInfo.trailer,
+      moTa: movieInfo.moTa,
+      maNhom: GROUPID,
+      biDanh: movieInfo.biDanh,
+      ngayKhoiChieu: movieInfo.ngayKhoiChieu,
+      hinhAnh: null,
     },
+
     onSubmit: (values) => {
-      console.log({ values });
+      console.log("values", values);
       values.maNhom = GROUPID;
-      // tạo đối tượng form data =>dưa giá trị values từ formik vào formdata
+
       let formData = new FormData();
       for (let key in values) {
         if (key !== "hinhAnh") {
           formData.append(key, values[key]);
         } else {
-          formData.append("File", values.hinhAnh, values.hinhAnh.name);
+          if (values.hinhAnh !== null) {
+            formData.append("File", values.hinhAnh, values.hinhAnh.name);
+          }
         }
       }
-      // goi api đưa formdata về backend xử lý
-      dispatch(fetchInsertMoviesAction(formData));
+      dispatch(fetchUpdateMoviesAction(formData));
     },
-    validationSchema: schema,
   });
 
-  //   dispatch action
-  const fetchGetInfoMovies = async () => {
-    dispatch(fetchGetInfoMoviesAction(movieId));
+  const handleChangeDatePicker = (value) => {
+    let ngayKhoiChieu = moment(value);
+    formik.setFieldValue("ngayKhoiChieu", ngayKhoiChieu);
   };
 
-  useEffect(() => {
-    fetchGetInfoMovies();
-  }, []);
-
-  // Closures function
   const handleChangeSwitch = (name) => {
     return (value) => {
       formik.setFieldValue(name, value);
     };
-  };
-
-  const handleChangeDatePicker = (value) => {
-    let ngayKhoiChieu = moment(value).format("DD/MM/YYYY");
-    formik.setFieldValue("ngayKhoiChieu", ngayKhoiChieu);
   };
 
   const handleChangeInputNumber = (name) => {
@@ -93,31 +82,31 @@ function EditMovie() {
     };
   };
 
-  const handleChangeFile = (e) => {
-    // lấy ra được file từ e
+  const handleChangeFile = async (e) => {
+    //Lấy file ra từ e
     let file = e.target.files[0];
     if (
-      file.type === "image/png" ||
       file.type === "image/jpeg" ||
       file.type === "image/jpg" ||
-      file.type === "image/gif"
+      file.type === "image/gif" ||
+      file.type === "image/png"
     ) {
-      // Tạo đối tượng để đọc file
+      //Đem dữ liệu file lưu vào formik
+      await formik.setFieldValue("hinhAnh", file);
+      //Tạo đối tượng để đọc file
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (e) => {
-        console.log(e.target.result);
-        // hinh base64
-        setImgSrc(e.target.result);
+        // console.log(e.target.result);
+        setImgSrc(e.target.result); //Hình base 64
       };
     }
-    // đem dữ liệu lưu vào formik
-    formik.setFieldValue("hinhAnh", file);
   };
-  const [componentSize, setComponentSize] = useState("default");
+
   const onFormLayoutChange = ({ size }) => {
     setComponentSize(size);
   };
+
   return (
     <Form
       onSubmitCapture={formik.handleSubmit}
@@ -134,94 +123,86 @@ function EditMovie() {
       onValuesChange={onFormLayoutChange}
       size={componentSize}
     >
+      <h3>Cập nhật phim </h3>
+
       <Form.Item label="Tên phim">
         <Input
-          onBlur={formik.handleBlur}
           name="tenPhim"
           onChange={formik.handleChange}
+          value={formik.values.tenPhim}
         />
-        {formik.touched.tenPhim && formik.errors.tenPhim && (
-          <span className={styles.errorText}>{formik.errors.tenPhim}</span>
-        )}
+      </Form.Item>
+      <Form.Item label="Bí danh">
+        <Input
+          name="biDanh"
+          onChange={formik.handleChange}
+          value={formik.values.biDanh}
+        />
+      </Form.Item>
+      <Form.Item label="Trailer">
+        <Input
+          name="trailer"
+          onChange={formik.handleChange}
+          value={formik.values.trailer}
+        />
+      </Form.Item>
+      <Form.Item label="Mô tả">
+        <Input
+          name="moTa"
+          onChange={formik.handleChange}
+          value={formik.values.moTa}
+        />
+      </Form.Item>
+      <Form.Item label="Ngày khởi chiếu">
+        <DatePicker
+          onChange={handleChangeDatePicker}
+          format="DD/MM/YYYY"
+          value={moment(formik.values.ngayKhoiChieu)}
+        />
+      </Form.Item>
+      <Form.Item label="Đang chiếu">
+        <Switch
+          name="dangChieu"
+          onChange={handleChangeSwitch("dangChieu")}
+          checked={formik.values.dangChieu}
+        />
+      </Form.Item>
+      <Form.Item label="Sắp chiếu">
+        <Switch
+          name="sapChieu"
+          onChange={handleChangeSwitch("sapChieu")}
+          checked={formik.values.sapChieu}
+        />
+      </Form.Item>
+      <Form.Item label="Hot">
+        <Switch
+          name="hot"
+          onChange={handleChangeSwitch("hot")}
+          checked={formik.values.hot}
+        />
+      </Form.Item>
+
+      <Form.Item label="Số sao">
+        <InputNumber
+          onChange={handleChangeInputNumber("danhGia")}
+          value={formik.values.danhGia}
+        />
       </Form.Item>
 
       <Form.Item label="Hình ảnh">
         <input
-          onBlur={formik.handleBlur}
           type="file"
-          name="hinhAnh"
           onChange={handleChangeFile}
-          accept="image/png, image/jpeg,image/jpg,image/gif"
+          accept="image/png, image/jpeg,image/gif,image/png"
         />
         <br />
-        <br />
-        <img width={100} height={100} src={imgSrc} alt="..." />
-      </Form.Item>
-
-      <Form.Item label="Bí danh" name="biDanh">
-        <Input name="biDanh" onChange={formik.handleChange} />
-      </Form.Item>
-
-      <Form.Item label="Ngày KC" name="ngayKhoiChieu">
-        <DatePicker
-          onBlur={formik.handleBlur}
-          format={"DD/MM/YYYY"}
-          onChange={handleChangeDatePicker}
+        <img
+          width={100}
+          height={100}
+          src={imgSrc === "" ? movieInfo.hinhAnh : imgSrc}
+          alt=""
         />
-        {formik.touched.ngayKhoiChieu && formik.errors.ngayKhoiChieu && (
-          <span className={styles.errorText}>
-            {formik.errors.ngayKhoiChieu}
-          </span>
-        )}
       </Form.Item>
-
-      <Form.Item label="Đang chiếu" valuePropName="checked">
-        <Switch onChange={handleChangeSwitch("dangChieu")} />
-      </Form.Item>
-
-      <Form.Item label="Sắp chiếu" valuePropName="checked">
-        <Switch onChange={handleChangeSwitch("sapChieu")} />
-      </Form.Item>
-
-      <Form.Item label="Hot" valuePropName="checked">
-        <Switch onChange={handleChangeSwitch("hot")} />
-      </Form.Item>
-
-      <Form.Item label="Đánh giá" name="danhGia">
-        <InputNumber
-          onBlur={formik.handleBlur}
-          onChange={handleChangeInputNumber("danhGia")}
-          min={1}
-          max={10}
-        />
-        {formik.touched.danhGia && formik.errors.danhGia && (
-          <span className={styles.errorText}>{formik.errors.danhGia}</span>
-        )}
-      </Form.Item>
-
-      <Form.Item label="Trailer" name="trailer">
-        <Input
-          onBlur={formik.handleBlur}
-          name="trailer"
-          onChange={formik.handleChange}
-        />
-        {formik.touched.trailer && formik.errors.trailer && (
-          <span className={styles.errorText}>{formik.errors.trailer}</span>
-        )}
-      </Form.Item>
-
-      <Form.Item label="Mô tả" name="moTa">
-        <TextArea
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          rows={4}
-          name="moTa"
-        />
-        {formik.touched.moTa && formik.errors.moTa && (
-          <span className={styles.errorText}>{formik.errors.moTa}</span>
-        )}
-      </Form.Item>
-
       <Form.Item
         wrapperCol={{
           offset: 8,
@@ -230,9 +211,6 @@ function EditMovie() {
       >
         <button className={styles.btn_submit} type="submit">
           Cập nhật
-        </button>
-        <button className={styles.btn_cancel} type="reset">
-          Cancel
         </button>
       </Form.Item>
     </Form>

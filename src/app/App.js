@@ -19,6 +19,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchProfileAction);
   }, []);
+
   return (
     <Router history={history}>
       <Switch>

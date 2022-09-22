@@ -1,8 +1,10 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Col, Row, Table } from "antd";
+import { fetchDeleteMoviesAction } from "features/movie/action";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 import FormMovie from "../FormMovie";
 import styles from "./style.module.css";
 
@@ -10,9 +12,11 @@ function TableMovie() {
   const movies = useSelector((state) => state.movie.movies);
 
   const history = useHistory();
-  const [isFormOpen, setIsFormOpen] = useState(false);
 
-  console.log({ movies });
+  const dispatch = useDispatch();
+
+  // const [isFormOpen, setIsFormOpen] = useState(false);
+
   // table
   const columns = [
     {
@@ -75,15 +79,37 @@ function TableMovie() {
       render: (_, movie) => {
         return (
           <>
-            <NavLink
+            <span
               className={styles.btn_edit}
-              to={`/admin/movie/edit/${movie.maPhim}`}
+              onClick={() => {
+                history.push("/admin/movie/edit/" + movie.maPhim);
+              }}
+              // to={`/admin/movie/edit/${movie.maPhim}`}
             >
               <EditOutlined />
-            </NavLink>
-            <NavLink className={styles.btn_delete} to="/">
+            </span>
+            <span
+              onClick={() => {
+                // gọi action xóa
+
+                Swal.fire({
+                  title: `Bạn có chắc muốn xóa phim !`,
+                  text: movie.tenPhim,
+                  icon: "question",
+                  showCancelButton: true,
+                  confirmButtonColor: "#ad200d",
+                  cancelButtonColor: "rgb(167 167 167)",
+                  confirmButtonText: "OK",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    dispatch(fetchDeleteMoviesAction(movie.maPhim));
+                  }
+                });
+              }}
+              className={styles.btn_delete}
+            >
               <DeleteOutlined />
-            </NavLink>
+            </span>
           </>
         );
       },
@@ -92,7 +118,7 @@ function TableMovie() {
   ];
   const data = movies;
   const onChange = (pagination, filters, sorter, extra) => {
-    console.log("params", pagination, filters, sorter, extra);
+    // console.log("params", pagination, filters, sorter, extra);
   };
 
   return (
@@ -108,7 +134,13 @@ function TableMovie() {
           Thêm Phim
         </Button>
       </Row>
-      <Table columns={columns} dataSource={data} onChange={onChange} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        onChange={onChange}
+        rowKey={"maPhim"}
+        sticky
+      />
       {/* <FormMovie open={isFormOpen} /> */}
     </div>
   );
