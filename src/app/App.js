@@ -10,6 +10,7 @@ import MovieManagement from "features/movie/pages/MovieManagement";
 import FormMovie from "features/movie/components/FormMovie";
 import { UserTemplate } from "common/components/UserTemplate";
 import EditMovie from "features/movie/components/EditMovie";
+import UserManagement from "features/user/pages/UserManagement";
 
 export const history = createBrowserHistory();
 
@@ -32,6 +33,7 @@ function App() {
           path="/admin/movie/edit/:id"
           component={EditMovie}
         />
+        <AdminTemplate exact path="/admin/user" component={UserManagement} />
       </Switch>
     </Router>
   );

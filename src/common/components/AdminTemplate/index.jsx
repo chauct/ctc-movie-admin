@@ -31,13 +31,17 @@ const items = [
   getItem(<img src={logo} alt="logo" width={160} />),
   getItem(<NavLink to="/admin">Dashboard</NavLink>, "1", <PieChartOutlined />),
   getItem("Notications", "2", <DesktopOutlined />),
-  getItem("Quản lý người dùng", "sub1", <UserOutlined />, [
-    getItem(<NavLink to="/admin/list-user">Danh Sách Người Dùng</NavLink>, "3"),
-  ]),
-  getItem("Quản lý phim", "sub2", <InsertRowBelowOutlined />, [
-    getItem(<NavLink to="/admin/movie">Danh Sách Phim</NavLink>, "4"),
-    getItem(<NavLink to="/admin/movie/add">Thêm Phim</NavLink>, "8"),
-  ]),
+  getItem(
+    <NavLink to="/admin/user">Quản lý người dùng </NavLink>,
+    "sub1",
+    <UserOutlined />
+  ),
+  getItem(
+    <NavLink to="/admin/movie">Quản lý phim</NavLink>,
+    "sub2",
+    <InsertRowBelowOutlined />,
+    [getItem(<NavLink to="/admin/movie/add">Thêm Phim</NavLink>, "8")]
+  ),
   getItem("Quản lý phòng vé ", "sub3", <LaptopOutlined />, [
     getItem(<NavLink to="/admin/movie-shedule">Lịch Chiếu Phim</NavLink>, "5"),
   ]),
