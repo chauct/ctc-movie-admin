@@ -15,11 +15,11 @@ function TableUser() {
 
   const dispatch = useDispatch();
 
+  const [showForm, setShowForm] = useState(false);
+  const [userUpdate, setUserUpdate] = useState({ userUpdate: [] });
   const [typeAction, setTypeAction] = useState("update");
 
-  const [showForm, setShowForm] = useState(false);
   const handleCloseForm = () => setShowForm(false);
-  const [capNhat, setCapNhat] = useState({ capNhat: [] });
   // table
   const columns = [
     {
@@ -77,9 +77,10 @@ function TableUser() {
             <span
               className={styles.btn_edit}
               onClick={() => {
-                // history.push("/admin/movie/edit/" + user.taiKhoan);
+                setTypeAction("update");
+                setUserUpdate(user);
+                setShowForm(true);
               }}
-              // to={`/admin/movie/edit/${movie.maPhim}`}
             >
               <EditOutlined />
             </span>
@@ -139,7 +140,7 @@ function TableUser() {
       <FormUser
         show={showForm}
         close={handleCloseForm}
-        capNhat={capNhat}
+        userUpdate={userUpdate}
         type={typeAction}
       />
     </div>

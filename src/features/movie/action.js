@@ -50,7 +50,7 @@ export const fetchInsertMoviesAction = (movieInsert) => {
       console.log("errors", err.response?.data);
       Swal.fire({
         title: "Thêm phim thất bại!",
-        text: `${err.response?.data}`,
+        text: `${err.response?.data.content}`,
         icon: "error",
       });
     }
@@ -106,7 +106,7 @@ export const fetchUpdateMoviesAction = (movieUpdate) => {
       console.log("errors", err.response?.data);
       Swal.fire({
         title: "Cập nhật thất bại!",
-        text: `${err.response?.data}`,
+        text: `${err.response?.data.content}`,
         icon: "error",
       });
     }
@@ -136,7 +136,7 @@ export const fetchDeleteMoviesAction = (movieId) => {
         });
       }
     } catch (err) {
-      console.log("errors", err.response?.data);
+      console.log("errors", err.response?.data.content);
     }
   };
 };

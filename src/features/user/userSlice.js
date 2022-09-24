@@ -1,8 +1,9 @@
 import produce from "immer";
-import { SET_LIST_USER } from "./action";
+import { SET_INFO_USER, SET_LIST_USER } from "./action";
 
 const initialState = {
   listUser: [],
+  thongTinNguoiDung: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -10,6 +11,12 @@ const reducer = (state = initialState, action) => {
     case SET_LIST_USER: {
       const nextState = produce(state, (draft) => {
         draft.listUser = action.user;
+      });
+      return nextState;
+    }
+    case SET_INFO_USER: {
+      const nextState = produce(state, (draft) => {
+        draft.thongTinNguoiDung = action.user;
       });
       return nextState;
     }

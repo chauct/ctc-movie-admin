@@ -208,9 +208,9 @@ function FormMovie() {
         <button className={styles.btn_submit} type="submit">
           Thêm phim
         </button>
-        <button className={styles.btn_cancel} type="reset">
+        {/* <button className={styles.btn_cancel} type="reset">
           Cancel
-        </button>
+        </button> */}
       </Form.Item>
     </Form>
   );

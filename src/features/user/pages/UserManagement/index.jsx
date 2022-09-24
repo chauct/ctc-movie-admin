@@ -42,7 +42,7 @@ export default function UserManagement() {
             onSearch={onSearch}
             onChange={handleChangeSearch}
             defaultValue={q}
-            placeholder="Tìm Kiếm Phim Theo Tên Người dùng"
+            placeholder="Tìm Kiếm Theo Tên Người dùng"
             prefix={<UserOutlined />}
           />
         </Col>

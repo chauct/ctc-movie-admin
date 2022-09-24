@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 
 // type
 export const SET_LIST_USER = "user/SET_LIST_USER";
-export const SET_INFO_MOVIES = "movie/SET_INFO_MOVIES";
+export const SET_INFO_USER = "user/SET_INFO_USER";
 
 // lấy ds user
 export const fetchUsersAction = (user) => {
@@ -32,7 +32,7 @@ export const fetchUsersAction = (user) => {
 };
 
 // // thêm người dùng
-export const fetchAddUserAction = (user) => {
+export const fetchInsertUserAction = (user) => {
   user.maNhom = GROUPID;
   return async (dispatch) => {
     try {
@@ -56,68 +56,65 @@ export const fetchAddUserAction = (user) => {
       console.log("errors", err.response?.data);
       Swal.fire({
         title: "Thêm  thất bại!",
-        text: `${err.response?.data}`,
+        text: `${err.response?.data.content}`,
         icon: "error",
       });
     }
   };
 };
 
-// // cập nhật phim ( lấy thông tin phim )
-// export const fetchGetInfoMoviesAction = (movieId) => {
-//   return async (dispatch) => {
-//     try {
-//       const res = await instance.request({
-//         url: "/api/QuanLyPhim/LayThongTinPhim",
-//         method: "GET",
-//         params: {
-//           MaPhim: movieId,
-//         },
-//       });
-//       dispatch({
-//         type: SET_INFO_MOVIES,
-//         payload: res.data.content,
-//       });
-//     } catch (err) {
-//       console.log("errors", err.response?.data);
-//     }
-//   };
-// };
+// // cập nhật user ( lấy thông tin user )
+export const fetchGetInfoUserAction = (thongTinNguoiDung) => {
+  return async (dispatch) => {
+    // console.log({ username });
+    try {
+      const res = await instance.request({
+        url: "/api/QuanLyNguoiDung/ThongTinTaiKhoan",
+        method: "POST",
+        // taiKhoan: username,
+      });
+      dispatch({
+        type: SET_INFO_USER,
+        payload: res.data.content,
+      });
+    } catch (err) {
+      console.log("errors", err.response?.data.content);
+    }
+  };
+};
 
 // // cập nhật phim (upload)
-// export const fetchUpdateMoviesAction = (movieUpdate) => {
-//   return async (dispatch) => {
-//     try {
-//       const res = await instance.request({
-//         url: "/api/QuanLyPhim/CapNhatPhimUpload",
-//         method: "POST",
-//         data: movieUpdate,
-//       });
+export const fetchUpdateUserAction = (user) => {
+  user.maNhom = GROUPID;
+  return async (dispatch) => {
+    try {
+      const res = await instance.request({
+        url: "/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung",
+        method: "POST",
+        data: user,
+      });
 
-//       if (res.status === 200) {
-//         Swal.fire({
-//           title: "Cập nhật thành công!",
-//           icon: "success",
-//           confirmButtonColor: "#1c7403",
-//         }).then((res) => {
-//           if (res.isConfirmed) {
-//             dispatch(fetchMoviesAction());
-//             // history.push("/admin/movie");
-//             <Redirect to="/admin/movie" />;
-//           }
-//         });
-//       }
-//       // dispatch(fetchMoviesAction());
-//     } catch (err) {
-//       console.log("errors", err.response?.data);
-//       Swal.fire({
-//         title: "Cập nhật thất bại!",
-//         text: `${err.response?.data}`,
-//         icon: "error",
-//       });
-//     }
-//   };
-// };
+      if (res.status === 200) {
+        Swal.fire({
+          title: "Cập nhật thành công!",
+          icon: "success",
+          confirmButtonColor: "#1c7403",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            dispatch(fetchUsersAction());
+          }
+        });
+      }
+    } catch (err) {
+      console.log("errors", err.response?.data);
+      Swal.fire({
+        title: "Cập nhật thất bại!",
+        text: `${err.response?.data.content}`,
+        icon: "error",
+      });
+    }
+  };
+};
 
 // // xóa phim
 // export const fetchDeleteMoviesAction = (movieId) => {
