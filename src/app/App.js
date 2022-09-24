@@ -34,6 +34,11 @@ function App() {
           component={EditMovie}
         />
         <AdminTemplate exact path="/admin/user" component={UserManagement} />
+        <AdminTemplate
+          exact
+          path="/admin/schedule"
+          component={UserManagement}
+        />
       </Switch>
     </Router>
   );

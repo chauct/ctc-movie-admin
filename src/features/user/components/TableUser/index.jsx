@@ -1,8 +1,9 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Col, Row, Table } from "antd";
+import { Button, Row, Table } from "antd";
+import { fetchDeleteUserAction } from "features/user/action";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import FormUser from "../FormUser";
 
@@ -85,23 +86,22 @@ function TableUser() {
               <EditOutlined />
             </span>
             <span
-              //   onClick={() => {
-              //     // gọi action xóa
-
-              //     Swal.fire({
-              //       title: `Bạn có chắc muốn xóa phim !`,
-              //       text: movie.tenPhim,
-              //       icon: "question",
-              //       showCancelButton: true,
-              //       confirmButtonColor: "#ad200d",
-              //       cancelButtonColor: "rgb(167 167 167)",
-              //       confirmButtonText: "OK",
-              //     }).then((result) => {
-              //       if (result.isConfirmed) {
-              //         dispatch(fetchDeleteMoviesAction(movie.maPhim));
-              //       }
-              //     });
-              //   }}
+              onClick={() => {
+                // gọi action xóa
+                // Swal.fire({
+                //   title: `Bạn có chắc muốn xóa người dùng `,
+                //   text: user.taiKhoan,
+                //   icon: "question",
+                //   showCancelButton: true,
+                //   confirmButtonColor: "#ad200d",
+                //   cancelButtonColor: "rgb(167 167 167)",
+                //   confirmButtonText: "OK",
+                // }).then((result) => {
+                //   if (result.isConfirmed) {
+                //     dispatch(fetchDeleteUserAction(user.taiKhoan));
+                //   }
+                // });
+              }}
               className={styles.btn_delete}
             >
               <DeleteOutlined />

@@ -117,14 +117,14 @@ export const fetchUpdateUserAction = (user) => {
 };
 
 // // xóa phim
-// export const fetchDeleteMoviesAction = (movieId) => {
+// export const fetchDeleteUserAction = (username) => {
 //   return async (dispatch) => {
 //     try {
 //       const res = await instance.request({
-//         url: "/api/QuanLyPhim/XoaPhim",
+//         url: "api/QuanLyNguoiDung/XoaNguoiDung",
 //         method: "DELETE",
 //         params: {
-//           MaPhim: movieId,
+//           TaiKhoan: username,
 //         },
 //       });
 //       if (res.status === 200) {
@@ -134,7 +134,7 @@ export const fetchUpdateUserAction = (user) => {
 //           confirmButtonColor: "#1c7403",
 //         }).then((res) => {
 //           if (res.isConfirmed) {
-//             dispatch(fetchMoviesAction());
+//             dispatch(fetchUsersAction());
 //           }
 //         });
 //       }

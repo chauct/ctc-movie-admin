@@ -43,7 +43,7 @@ const items = [
     [getItem(<NavLink to="/admin/movie/add">Thêm Phim</NavLink>, "8")]
   ),
   getItem("Quản lý phòng vé ", "sub3", <LaptopOutlined />, [
-    getItem(<NavLink to="/admin/movie-shedule">Lịch Chiếu Phim</NavLink>, "5"),
+    getItem(<NavLink to="/admin/schedule">Lịch Chiếu Phim</NavLink>, "5"),
   ]),
   getItem("Quản lý rạp ", "sub4", <HddOutlined />, [
     getItem(<NavLink to="/admin/list-cinema">Thông Tin Cụm Rạp</NavLink>, "6"),
@@ -76,7 +76,7 @@ function AdminTemplate(props) {
     goToSignin();
   };
   // // check
-  if (!localStorage.getItem("userLogin")) {
+  if (!localStorage.getItem("token")) {
     Swal.fire("Thông báo", "Bạn chưa đăng nhập!", "Error");
     return <Redirect to="/" />;
   }
