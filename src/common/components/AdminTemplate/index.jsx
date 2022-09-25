@@ -42,16 +42,13 @@ const items = [
     <InsertRowBelowOutlined />,
     [getItem(<NavLink to="/admin/movie/add">Thêm Phim</NavLink>, "8")]
   ),
-  getItem("Quản lý phòng vé ", "sub3", <LaptopOutlined />, [
-    getItem(<NavLink to="/admin/schedule">Lịch Chiếu Phim</NavLink>, "5"),
-  ]),
+
   getItem("Quản lý rạp ", "sub4", <HddOutlined />, [
-    getItem(<NavLink to="/admin/list-cinema">Thông Tin Cụm Rạp</NavLink>, "6"),
+    getItem(<NavLink to="/admin/info-cinema">Thông Tin Cụm Rạp</NavLink>, "20"),
     getItem(
-      <NavLink to="/admin/shedule-cinema">Thông Tin Lịch Chiếu</NavLink>,
+      <NavLink to="/admin/schedule-cinema">Thông Tin Lịch Chiếu</NavLink>,
       "7"
     ),
-    getItem("File", "8", <FileOutlined />),
   ]),
 ];
 

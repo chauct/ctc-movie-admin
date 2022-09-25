@@ -88,19 +88,19 @@ function TableUser() {
             <span
               onClick={() => {
                 // gọi action xóa
-                // Swal.fire({
-                //   title: `Bạn có chắc muốn xóa người dùng `,
-                //   text: user.taiKhoan,
-                //   icon: "question",
-                //   showCancelButton: true,
-                //   confirmButtonColor: "#ad200d",
-                //   cancelButtonColor: "rgb(167 167 167)",
-                //   confirmButtonText: "OK",
-                // }).then((result) => {
-                //   if (result.isConfirmed) {
-                //     dispatch(fetchDeleteUserAction(user.taiKhoan));
-                //   }
-                // });
+                Swal.fire({
+                  title: `Bạn có chắc muốn xóa người dùng `,
+                  text: user.taiKhoan,
+                  icon: "question",
+                  showCancelButton: true,
+                  confirmButtonColor: "#ad200d",
+                  cancelButtonColor: "rgb(167 167 167)",
+                  confirmButtonText: "OK",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    dispatch(fetchDeleteUserAction(user.taiKhoan));
+                  }
+                });
               }}
               className={styles.btn_delete}
             >

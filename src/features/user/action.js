@@ -117,29 +117,29 @@ export const fetchUpdateUserAction = (user) => {
 };
 
 // // xóa phim
-// export const fetchDeleteUserAction = (username) => {
-//   return async (dispatch) => {
-//     try {
-//       const res = await instance.request({
-//         url: "api/QuanLyNguoiDung/XoaNguoiDung",
-//         method: "DELETE",
-//         params: {
-//           TaiKhoan: username,
-//         },
-//       });
-//       if (res.status === 200) {
-//         Swal.fire({
-//           title: "Xóa thành công!",
-//           icon: "success",
-//           confirmButtonColor: "#1c7403",
-//         }).then((res) => {
-//           if (res.isConfirmed) {
-//             dispatch(fetchUsersAction());
-//           }
-//         });
-//       }
-//     } catch (err) {
-//       console.log("errors", err.response?.data);
-//     }
-//   };
-// };
+export const fetchDeleteUserAction = (username) => {
+  return async (dispatch) => {
+    try {
+      const res = await instance.request({
+        url: "api/QuanLyNguoiDung/XoaNguoiDung",
+        method: "DELETE",
+        params: {
+          TaiKhoan: username,
+        },
+      });
+      if (res.status === 200) {
+        Swal.fire({
+          title: "Xóa thành công!",
+          icon: "success",
+          confirmButtonColor: "#1c7403",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            dispatch(fetchUsersAction());
+          }
+        });
+      }
+    } catch (err) {
+      console.log("errors", err.response?.data);
+    }
+  };
+};

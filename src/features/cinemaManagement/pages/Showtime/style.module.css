@@ -1,0 +1,22 @@
+.titleMovie {
+  text-transform: capitalize;
+  text-align: left;
+  padding-top: 15px;
+}
+.form {
+  margin-top: 40px;
+}
+.btn_submit {
+  margin-right: 30px;
+  padding: 5px 20px;
+  background-color: #ad200d;
+  color: #fff;
+  border: 1px solid #ad200d;
+  transition: all 0.5s;
+}
+.btn_submit:hover,
+.btn_submit:focus {
+  background-color: transparent;
+  color: #ad200d;
+  border: 1px solid #ad200d;
+}

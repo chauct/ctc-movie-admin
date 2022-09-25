@@ -96,123 +96,126 @@ function FormMovie() {
     setComponentSize(size);
   };
   return (
-    <Form
-      onSubmitCapture={formik.handleSubmit}
-      labelCol={{
-        span: 4,
-      }}
-      wrapperCol={{
-        span: 16,
-      }}
-      layout="horizontal"
-      initialValues={{
-        size: componentSize,
-      }}
-      onValuesChange={onFormLayoutChange}
-      size={componentSize}
-    >
-      <Form.Item label="Tên phim">
-        <Input
-          onBlur={formik.handleBlur}
-          name="tenPhim"
-          onChange={formik.handleChange}
-        />
-        {formik.touched.tenPhim && formik.errors.tenPhim && (
-          <span className={styles.errorText}>{formik.errors.tenPhim}</span>
-        )}
-      </Form.Item>
-
-      <Form.Item label="Hình ảnh">
-        <input
-          onBlur={formik.handleBlur}
-          type="file"
-          name="hinhAnh"
-          onChange={handleChangeFile}
-          accept="image/png, image/jpeg,image/jpg,image/gif"
-        />
-        <br />
-        <br />
-        <img width={100} height={100} src={imgSrc} alt="..." />
-      </Form.Item>
-
-      <Form.Item label="Bí danh">
-        <Input name="biDanh" onChange={formik.handleChange} />
-      </Form.Item>
-
-      <Form.Item label="Ngày KC">
-        <DatePicker
-          onBlur={formik.handleBlur}
-          format={"DD/MM/YYYY"}
-          onChange={handleChangeDatePicker}
-        />
-        {formik.touched.ngayKhoiChieu && formik.errors.ngayKhoiChieu && (
-          <span className={styles.errorText}>
-            {formik.errors.ngayKhoiChieu}
-          </span>
-        )}
-      </Form.Item>
-
-      <Form.Item label="Đang chiếu">
-        <Switch onChange={handleChangeSwitch("dangChieu")} />
-      </Form.Item>
-
-      <Form.Item label="Sắp chiếu">
-        <Switch onChange={handleChangeSwitch("sapChieu")} />
-      </Form.Item>
-
-      <Form.Item label="Hot">
-        <Switch onChange={handleChangeSwitch("hot")} />
-      </Form.Item>
-
-      <Form.Item label="Đánh giá">
-        <InputNumber
-          onBlur={formik.handleBlur}
-          onChange={handleChangeInputNumber("danhGia")}
-          min={1}
-          max={10}
-        />
-        {formik.touched.danhGia && formik.errors.danhGia && (
-          <span className={styles.errorText}>{formik.errors.danhGia}</span>
-        )}
-      </Form.Item>
-
-      <Form.Item label="Trailer">
-        <Input
-          onBlur={formik.handleBlur}
-          name="trailer"
-          onChange={formik.handleChange}
-        />
-        {formik.touched.trailer && formik.errors.trailer && (
-          <span className={styles.errorText}>{formik.errors.trailer}</span>
-        )}
-      </Form.Item>
-
-      <Form.Item label="Mô tả">
-        <TextArea
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          rows={4}
-          name="moTa"
-        />
-        {formik.touched.moTa && formik.errors.moTa && (
-          <span className={styles.errorText}>{formik.errors.moTa}</span>
-        )}
-      </Form.Item>
-
-      <Form.Item
+    <>
+      <h1 className="title">Thêm Phim</h1>
+      <Form
+        onSubmitCapture={formik.handleSubmit}
+        labelCol={{
+          span: 4,
+        }}
         wrapperCol={{
-          offset: 8,
           span: 16,
         }}
+        layout="horizontal"
+        initialValues={{
+          size: componentSize,
+        }}
+        onValuesChange={onFormLayoutChange}
+        size={componentSize}
       >
-        <button className={styles.btn_submit} type="submit">
-          Thêm phim
-        </button>
-        {/* <button className={styles.btn_cancel} type="reset">
+        <Form.Item label="Tên phim">
+          <Input
+            onBlur={formik.handleBlur}
+            name="tenPhim"
+            onChange={formik.handleChange}
+          />
+          {formik.touched.tenPhim && formik.errors.tenPhim && (
+            <span className={styles.errorText}>{formik.errors.tenPhim}</span>
+          )}
+        </Form.Item>
+
+        <Form.Item label="Hình ảnh">
+          <input
+            onBlur={formik.handleBlur}
+            type="file"
+            name="hinhAnh"
+            onChange={handleChangeFile}
+            accept="image/png, image/jpeg,image/jpg,image/gif"
+          />
+          <br />
+          <br />
+          <img width={100} height={100} src={imgSrc} alt="..." />
+        </Form.Item>
+
+        <Form.Item label="Bí danh">
+          <Input name="biDanh" onChange={formik.handleChange} />
+        </Form.Item>
+
+        <Form.Item label="Ngày KC">
+          <DatePicker
+            onBlur={formik.handleBlur}
+            format={"DD/MM/YYYY"}
+            onChange={handleChangeDatePicker}
+          />
+          {formik.touched.ngayKhoiChieu && formik.errors.ngayKhoiChieu && (
+            <span className={styles.errorText}>
+              {formik.errors.ngayKhoiChieu}
+            </span>
+          )}
+        </Form.Item>
+
+        <Form.Item label="Đang chiếu">
+          <Switch onChange={handleChangeSwitch("dangChieu")} />
+        </Form.Item>
+
+        <Form.Item label="Sắp chiếu">
+          <Switch onChange={handleChangeSwitch("sapChieu")} />
+        </Form.Item>
+
+        <Form.Item label="Hot">
+          <Switch onChange={handleChangeSwitch("hot")} />
+        </Form.Item>
+
+        <Form.Item label="Đánh giá">
+          <InputNumber
+            onBlur={formik.handleBlur}
+            onChange={handleChangeInputNumber("danhGia")}
+            min={1}
+            max={10}
+          />
+          {formik.touched.danhGia && formik.errors.danhGia && (
+            <span className={styles.errorText}>{formik.errors.danhGia}</span>
+          )}
+        </Form.Item>
+
+        <Form.Item label="Trailer">
+          <Input
+            onBlur={formik.handleBlur}
+            name="trailer"
+            onChange={formik.handleChange}
+          />
+          {formik.touched.trailer && formik.errors.trailer && (
+            <span className={styles.errorText}>{formik.errors.trailer}</span>
+          )}
+        </Form.Item>
+
+        <Form.Item label="Mô tả">
+          <TextArea
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            rows={4}
+            name="moTa"
+          />
+          {formik.touched.moTa && formik.errors.moTa && (
+            <span className={styles.errorText}>{formik.errors.moTa}</span>
+          )}
+        </Form.Item>
+
+        <Form.Item
+          wrapperCol={{
+            offset: 8,
+            span: 16,
+          }}
+        >
+          <button className={styles.btn_submit} type="submit">
+            Thêm phim
+          </button>
+          {/* <button className={styles.btn_cancel} type="reset">
           Cancel
         </button> */}
-      </Form.Item>
-    </Form>
+        </Form.Item>
+      </Form>
+    </>
   );
 }
 

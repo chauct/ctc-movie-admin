@@ -12,3 +12,11 @@ code {
     monospace;
 }
 @import "antd/dist/antd.css";
+.title {
+  color: #ad200d;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 600;
+  padding-bottom: 35px;
+  text-transform: uppercase;
+}

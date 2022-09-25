@@ -1,5 +1,10 @@
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Col, Row, Table } from "antd";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  ScheduleOutlined,
+} from "@ant-design/icons";
+import { Button, Col, Modal, Row, Table } from "antd";
+import Showtime from "features/cinemaManagement/pages/Showtime";
 import { fetchDeleteMoviesAction } from "features/movie/action";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,8 +20,20 @@ function TableMovie() {
 
   const dispatch = useDispatch();
 
-  // const [isFormOpen, setIsFormOpen] = useState(false);
+  // modal thêm lịch chiếu
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   // table
   const columns = [
     {
@@ -110,6 +127,17 @@ function TableMovie() {
             >
               <DeleteOutlined />
             </span>
+            <span
+              className={styles.btn_showtime}
+              onClick={() => {
+                history.push(
+                  "/admin/movie/showtime/" + movie.maPhim + "/" + movie.tenPhim
+                );
+                localStorage.setItem("movieParams", JSON.stringify(movie));
+              }}
+            >
+              <ScheduleOutlined />
+            </span>
           </>
         );
       },
@@ -141,7 +169,16 @@ function TableMovie() {
         rowKey={"maPhim"}
         sticky
       />
-      {/* <FormMovie open={isFormOpen} /> */}
+
+      {/* <Modal
+        title="Tạo lịch chiếu"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <Showtime />
+      </Modal> */}
     </div>
   );
 }
