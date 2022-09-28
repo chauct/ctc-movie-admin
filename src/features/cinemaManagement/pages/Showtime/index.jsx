@@ -1,29 +1,13 @@
-import {
-  Button,
-  Cascader,
-  Col,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Row,
-  Select,
-} from "antd";
+import { Button, Col, DatePicker, Form, Row, Select } from "antd";
 import styles from "./style.module.css";
 import React, { useEffect, useState } from "react";
 import instance from "api/instance";
-import { result } from "lodash";
 import { useFormik } from "formik";
 import moment from "moment";
-import { GROUPID } from "common/utils/Setting";
-import { useDispatch } from "react-redux";
-import { createScheduleMoviesAction } from "features/cinemaManagement/action";
 import Swal from "sweetalert2";
 const { Option } = Select;
 
 function Showtime(props) {
-  const dispatch = useDispatch();
-
   const formik = useFormik({
     initialValues: {
       maPhim: props.match.params.id,

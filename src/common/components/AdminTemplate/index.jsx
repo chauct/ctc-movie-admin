@@ -8,7 +8,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import logo from "assets/img/Logo-light.png";
-import { Breadcrumb, Layout, Menu } from "antd";
+import { Breadcrumb, Col, Layout, Menu, Row } from "antd";
 import React, { useState } from "react";
 import { NavLink, Route, useHistory } from "react-router-dom";
 import styles from "./style.module.css";
@@ -120,10 +120,17 @@ function AdminTemplate(props) {
                 }}
               >
                 <div className={styles.header}>
-                  <UserOutlined /> {userLogin.taiKhoan}
-                  <span style={{ marginLeft: 20 }} onClick={handleLogout}>
-                    Đăng xuất
-                  </span>
+                  <Row>
+                    <Col offset={20} span={4}>
+                      <UserOutlined /> {userLogin.taiKhoan}
+                      <span
+                        className={styles.btn_logout}
+                        onClick={handleLogout}
+                      >
+                        Đăng xuất
+                      </span>
+                    </Col>
+                  </Row>
                 </div>
               </Header>
               <Content
@@ -131,14 +138,14 @@ function AdminTemplate(props) {
                   margin: "0 16px",
                 }}
               >
-                <Breadcrumb
+                {/* <Breadcrumb
                   style={{
                     margin: "16px 0",
                   }}
                 >
                   <Breadcrumb.Item>User</Breadcrumb.Item>
                   <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                </Breadcrumb>
+                </Breadcrumb> */}
                 <div
                   className="site-layout-background"
                   style={{

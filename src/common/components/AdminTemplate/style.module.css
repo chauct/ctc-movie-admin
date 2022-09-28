@@ -7,3 +7,9 @@
 .header {
   color: #fff;
 }
+.header .btn_logout {
+  margin-left: 20px;
+  background-color: rgb(157, 4, 4);
+  padding: 10px 15px;
+  cursor: pointer;
+}

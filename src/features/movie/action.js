@@ -43,8 +43,7 @@ export const fetchInsertMoviesAction = (movieInsert) => {
         icon: "success",
         confirmButtonColor: "#1c7403",
       });
-      // Swal.fire("Thông báo", "Thêm thành công!", "success");
-      // alert("Thêm phim thành công!");
+
       console.log("result", res.data.content);
     } catch (err) {
       console.log("errors", err.response?.data);

@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Route } from "react-router-dom";
-
+import styles from "./style.module.css";
 export const UserTemplate = (props) => {
   return (
     <Route
